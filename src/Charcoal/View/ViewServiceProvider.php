@@ -123,7 +123,7 @@ class ViewServiceProvider implements ServiceProviderInterface
         $container['view/loader/dependencies'] = function (Container $container): array {
             return [
                 'base_path' => $container['config']['base_path'],
-                'paths'     => $container['view/config']['paths']
+                'paths'     => $container['config']->resolveValues($container['view/config']['paths'])
             ];
         };
 
@@ -250,7 +250,7 @@ class ViewServiceProvider implements ServiceProviderInterface
          */
         $container['view/mustache/helpers/translator'] = function (Container $container): TranslatorHelpers {
             return new TranslatorHelpers([
-                'translator' => (isset($container['translater']) ? $container['translator'] : null)
+                'translator' => (isset($container['translator']) ? $container['translator'] : null)
             ]);
         };
 
